@@ -310,14 +310,16 @@ def main():
     temp_password = generate_random_password(12)
     has_pubkey = bool(PUBLIC_KEY.strip())
 
-    # 优先装载 Google Drive，实现模型文件持久化永不丢失
-    try:
-        from google.colab import drive
-        print("[*] 正在装载 Google 云端硬盘 (实现大模型持久化存储)...")
-        drive.mount('/content/drive')
-        print("[+] Google 云端硬盘已成功挂载至 /content/drive/MyDrive")
-    except Exception as e:
-        print(f"[-] 跳过 Google 云端硬盘挂载: {e}")
+    # 检测并确认 Google Drive 装载状态
+    if os.path.exists("/content/drive/MyDrive"):
+        print("[+] 检测到 Google 云端硬盘已装载，模型文件将持久化存储于 /content/drive/MyDrive")
+    else:
+        try:
+            from google.colab import drive
+            drive.mount('/content/drive')
+            print("[+] Google 云端硬盘已成功挂载至 /content/drive/MyDrive")
+        except Exception:
+            pass
 
     setup_sshd(temp_password, PUBLIC_KEY, port=SSH_PORT)
     cloudflared_path = ensure_cloudflared()
