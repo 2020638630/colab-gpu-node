@@ -1,0 +1,23 @@
+# 二进制执行文件 (自动从云端下载，不存入仓库)
+cloudflared.exe
+cloudflared
+
+# Python 缓存与虚拟环境
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv/
+env/
+venv/
+
+# 日志与临时文件
+*.log
+.tmp*
+/tmp/
+
+# IDE 与操作系统配置
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
