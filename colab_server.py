@@ -23,7 +23,7 @@ SSH_PORT = 2222  # Colab 环境默认 SSH 端口为 2222
 
 # 【进阶：固定域名模式】若在 Cloudflare Zero Trust 创建了命名隧道，在此处填入 Token
 # 留空则自动降级为使用临时 Quick Tunnel (trycloudflare.com)
-TUNNEL_TOKEN = ""
+TUNNEL_TOKEN = "eyJhIjoiOTUxZjkwZmQ4MzkyNDA3MWNjMTY5NjQzMzZlYjlkMjMiLCJ0IjoiMjM2NjAzN2YtMmNjNC00OGMwLWI4OTMtNzcxYmZiMTFlNTEyIiwicyI6IllXWXdZVGxpTVRJdE1EVXdNaTAwTVRSakxUbGtPVFV0WXpnNE56RmxZbVE0WlRkbCJ9"
 FIXED_HOSTNAME = ""  # 配合 Token 绑定的固定域名（例如 colab.yourdomain.com）
 # ===================================================
 
@@ -309,6 +309,15 @@ Host colab
 def main():
     temp_password = generate_random_password(12)
     has_pubkey = bool(PUBLIC_KEY.strip())
+
+    # 优先装载 Google Drive，实现模型文件持久化永不丢失
+    try:
+        from google.colab import drive
+        print("[*] 正在装载 Google 云端硬盘 (实现大模型持久化存储)...")
+        drive.mount('/content/drive')
+        print("[+] Google 云端硬盘已成功挂载至 /content/drive/MyDrive")
+    except Exception as e:
+        print(f"[-] 跳过 Google 云端硬盘挂载: {e}")
 
     setup_sshd(temp_password, PUBLIC_KEY, port=SSH_PORT)
     cloudflared_path = ensure_cloudflared()
