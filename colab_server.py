@@ -22,8 +22,8 @@ PUBLIC_KEY = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBS14khO1tuKMQZU8dSzRg+ais7yeZ
 SSH_PORT = 2222  # Colab 环境默认 SSH 端口为 2222
 
 # 【进阶：固定域名模式】若在 Cloudflare Zero Trust 创建了命名隧道，在此处填入 Token
-# 留空则自动降级为使用临时 Quick Tunnel (trycloudflare.com)
-TUNNEL_TOKEN = "eyJhIjoiOTUxZjkwZmQ4MzkyNDA3MWNjMTY5NjQzMzZlYjlkMjMiLCJ0IjoiMjM2NjAzN2YtMmNjNC00OGMwLWI4OTMtNzcxYmZiMTFlNTEyIiwicyI6IllXWXdZVGxpTVRJdE1EVXdNaTAwTVRSakxUbGtPVFV0WXpnNE56RmxZbVE0WlRkbCJ9"
+# 留空则自动使用免域名的 Quick Tunnel (trycloudflare.com)
+TUNNEL_TOKEN = ""
 FIXED_HOSTNAME = ""  # 配合 Token 绑定的固定域名（例如 colab.yourdomain.com）
 # ===================================================
 
