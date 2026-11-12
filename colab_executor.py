@@ -41,7 +41,7 @@ class WindowsSocketProxy:
             cmd_args,
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+            stderr=subprocess.DEVNULL,  # 避免因 stderr 管道缓冲区写满导致子进程阻塞死锁
             bufsize=0,
         )
         self.sock, self._internal_sock = socket.socketpair()
